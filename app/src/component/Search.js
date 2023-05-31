@@ -1,12 +1,11 @@
 import React, {useState} from 'react'
 import axios from 'axios';
-//require('dotenv').config();
 
 function Search() {
 
   const [data, setData] = useState({})
   const [city, setCity] = useState('');
-  const apiKey = '24c3c13679707271c4e1bcf369c2e0c2';
+  const apiKey = process.env.API_KEY;
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang={fr}`
   //units=metric => celsius
   const searchCity = (event) => {
@@ -19,10 +18,10 @@ function Search() {
 
   
   function parapluie (description) {
-    return description.toLowerCase() === "clear sky" ? "Pas de soucis , vous n'en aurait pas besoin" : "Faites attention , vous en aurait peut être besoin";
+    return description.toLowerCase() === "clear sky" ? "Pas de soucis , vous n'en aurez pas besoin" : "Faites attention , vous en aurait peut être besoin";
   }
 
-  const needAnUmbrella = parapluie(data.weather[0].description)
+  const needAnUmbrella = parapluie(data.weather[0].description) ;
 
   return (
     <div className="search-card">
