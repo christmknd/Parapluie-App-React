@@ -1,12 +1,12 @@
 import React, {useState} from 'react'
-import axios from 'axios'
+import axios from 'axios';
+require('dotenv').config()
 
 function Search() {
 
   const [data, setData] = useState({})
   const [city, setCity] = useState('');
-  const apiKey = '24c3c13679707271c4e1bcf369c2e0c2';
-  console.log(apiKey)
+  const apiKey = process.env.API_KEY;
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang={fr}`
   //units=metric => celsius
   const searchCity = (event) => {
@@ -29,10 +29,16 @@ function Search() {
         </div>
         <div className="result"> 
           <div className="city">
-            <p>{data.name}</p>
+            <p>Ville : {data.name}</p>
           </div>
           <div className="temp">
-            <p>{data.main.temp}</p>
+          {data.main ? <p>{data.main.temp.toFixed()}°C</p> : null}
+          </div>
+          <div className="ciel">
+          {data.weather ? <p>{data.weather[0].main} - {data.weather[0].description}</p> : null}
+          </div>
+          <div className="icon">
+          {data.weather ? <img alt="weather" src={`https://openweathermap.org/img/wn/${data.weather[0].icon}.png`}/>  : null}
           </div>
         </div>
         <div className="catchphrase">
