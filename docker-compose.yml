@@ -1,0 +1,10 @@
+version: "3" 
+services:
+  
+  react:
+    container_name: parapluie-app
+    build: ./app
+    ports:
+      - 3000:3000
+    volumes:
+      - ./app/src:/app/src
